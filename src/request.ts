@@ -22,8 +22,8 @@ export class HttpService implements IHttpService {
                 method: method,
                 url: url,
                 headers: headers || {},
-                qs: params,
-                body: data,
+                qs: params || {},
+                body: data || {},
                 json: true
             }, (error, response, body) => {
                 if (!error && response.statusCode == 200) {
