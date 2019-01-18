@@ -27,6 +27,7 @@ export class HttpService implements IHttpService {
                 json: true
             }, (error, response, body) => {
                 if (!error && response.statusCode == 200) {
+                    console.log(body);
                     resolve(body as T);
                 } else {
                     reject(error);
