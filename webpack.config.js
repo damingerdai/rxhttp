@@ -40,12 +40,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
     ],
-    externals: {
-        // 'lodash': {
-        //     commonjs: 'lodash',
-        //     commonjs2: 'lodash',
-        //     amd: 'lodash',
-        //     root: '_'
-        // }
-    },
+    externals: [
+        'rxjs',
+    ],
 }
