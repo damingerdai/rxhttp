@@ -17,7 +17,7 @@ interface IHttpService {
 export class HttpService implements IHttpService {
 
     http<T>(method: any, url: any, data: any, params: any, headers: Header<string>): Promise<T> {
-        const promise = (resolve: any, reject: any) => {
+        const promise = (resolve: (value: T) => void, reject: (error: any) => void) => {
             request({
                 method: method,
                 url: url,
