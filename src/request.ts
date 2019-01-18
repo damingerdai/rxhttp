@@ -1,4 +1,4 @@
-import * as request from 'request';
+import request from 'request';
 import { Header } from './model';
 
 interface IHttpService {
@@ -11,13 +11,13 @@ interface IHttpService {
 
     // delete<T>(url, data, header): Promise<T>;
 
-    http<T>(method, url, data: any, params: any, header: Header<string>): Promise<T>;
+    http<T>(method: string, url: string, data: any, params: any, header: Header<string>): Promise<T>;
 }
 
 export class HttpService implements IHttpService {
 
     http<T>(method: any, url: any, data: any, params: any, headers: Header<string>): Promise<T> {
-        const promise = (resolve, reject) => {
+        const promise = (resolve: any, reject: any) => {
             request({
                 method: method,
                 url: url,
