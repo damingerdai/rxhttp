@@ -6,8 +6,8 @@ module.exports = {
     mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'webpack-numbers.js',
-        library: 'webpackNumbers',
+        filename: 'http.js',
+        library: 'http',
         globalObject: 'this',
         libraryTarget: 'umd'
     },
