@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "基于rxjs和request的http请求工具类",
   "main": "index.js",
+  "sideEffects": false,
   "dependencies": {
     "request": "^2.88.0",
     "rxjs": "^6.3.3"
