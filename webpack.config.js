@@ -2,14 +2,16 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        rxhttp: './src/index.ts',
+        http: './src/index.ts'
+    }, 
     mode: 'production',
     target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'http.js',
+        filename: '[name].js',
         library: 'http',
-        globalObject: 'this',
         libraryTarget: 'umd'
     },
     module: {
