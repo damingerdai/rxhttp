@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         rxhttp: './src/index.ts',
-        http: './src/index.ts'
+        http: './src/request.ts'
     }, 
     mode: 'production',
     target: 'node',
