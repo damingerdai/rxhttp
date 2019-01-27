@@ -2,13 +2,16 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        rxhttp: './src/index.ts',
+        http: './src/request.ts'
+    }, 
     mode: 'production',
+    target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'webpack-numbers.js',
-        library: 'webpackNumbers',
-        globalObject: 'this',
+        filename: '[name].js',
+        library: 'http',
         libraryTarget: 'umd'
     },
     module: {
@@ -37,12 +40,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
     ],
-    externals: {
-        // 'lodash': {
-        //     commonjs: 'lodash',
-        //     commonjs2: 'lodash',
-        //     amd: 'lodash',
-        //     root: '_'
-        // }
-    },
+    externals: [
+        'rxjs',
+    ],
 }

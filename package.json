@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "基于rxjs和request的http请求工具类",
   "main": "index.js",
+  "sideEffects": false,
   "dependencies": {
     "request": "^2.88.0",
     "rxjs": "^6.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@types/request": "^2.48.1",
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^1.0.0",
@@ -19,7 +21,8 @@
     "webpack-cli": "^3.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
