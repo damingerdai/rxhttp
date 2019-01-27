@@ -1,4 +1,4 @@
 const http = require('./http').HttpService;
-console.log(new http());
-const q = new http().http('get', 'https://api.github.com/search/issues?q=repo:angular/material2');
-console.log(q);
+
+const q = new http().http('get', 'https://www.tianqiapi.com/api/?version=v1&city=上海');
+q.then(console.log).catch(console.log);
