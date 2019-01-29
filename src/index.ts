@@ -1,6 +1,6 @@
-import { HttpService } from './request';
-import { Header } from "./model";
 import { Observable } from 'rxjs';
+import { Header } from "./model";
+import { HttpService } from './request';
 
 
 export class RxHttpService {
