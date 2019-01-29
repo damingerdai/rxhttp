@@ -1,5 +1,5 @@
 import request from 'request';
-import { Model } from './model';
+import { Model, Method } from './model';
 
 interface IHttpService {
 
@@ -32,7 +32,7 @@ export class HttpService implements IHttpService {
         return this.http('delete', url, {}, {}, header);
     }
 
-    http<T>(method: any, url: any, data: any, params: any, headers: Model<string>): Promise<T> {
+    http<T>(method: Method, url: any, data: any, params: any, headers: Model<string>): Promise<T> {
         const promise = (resolve: (value: T) => void, reject: (error: any) => void) => {
             request({
                 method: method,
