@@ -29,7 +29,7 @@ export class HttpService implements IHttpService {
     }
 
     delete<T>(url: string, header: Model<string>): Promise<T> {
-        return this.http('put', url, {}, {}, header);
+        return this.http('delete', url, {}, {}, header);
     }
 
     http<T>(method: any, url: any, data: any, params: any, headers: Model<string>): Promise<T> {
