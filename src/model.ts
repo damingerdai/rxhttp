@@ -1,3 +1,3 @@
-export interface Header<T> {
+export interface Model<T> {
     [key: string]: T;
 }
