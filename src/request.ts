@@ -3,28 +3,28 @@ import { Model, Method } from './model';
 
 interface IHttpService {
 
-    get<T>(url: string, data: any, header: Model<string>): Promise<T>;
+    get<T>(url: string, data: Model<string>, header: Model<string>): Promise<T>;
 
-    post<T>(url: string, data: any, header: Model<string>): Promise<T>;
+    post<T>(url: string, data: Model<string>, header: Model<string>): Promise<T>;
 
-    put<T>(url: string, data: any, header: Model<string>): Promise<T>;
+    put<T>(url: string, data: Model<string>, header: Model<string>): Promise<T>;
 
     delete<T>(url: string, header: Model<string>): Promise<T>;
 
-    http<T>(method: string, url: string, data: any, params: any, header: Model<string>): Promise<T>;
+    http<T>(method: string, url: string, data: Model<string>, params: Model<string>, header: Model<string>): Promise<T>;
 }
 
 export class HttpService implements IHttpService {
 
-    get<T>(url: string, data: any, header: Model<string>): Promise<T> {
+    get<T>(url: string, data: Model<string>, header: Model<string>): Promise<T> {
         return this.http('get', url, {}, data, header);
     }
 
-    post<T>(url: string, data: any, header: Model<string>): Promise<T> {
+    post<T>(url: string, data: Model<string>, header: Model<string>): Promise<T> {
         return this.http('post', url, data, {}, header);
     }
 
-    put<T>(url: string, data: any, header: Model<string>): Promise<T> {
+    put<T>(url: string, data: Model<string>, header: Model<string>): Promise<T> {
         return this.http('put', url, data, {}, header);
     }
 
@@ -32,7 +32,7 @@ export class HttpService implements IHttpService {
         return this.http('delete', url, {}, {}, header);
     }
 
-    http<T>(method: Method, url: any, data: any, params: any, headers: Model<string>): Promise<T> {
+    http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Promise<T> {
         const promise = (resolve: (value: T) => void, reject: (error: any) => void) => {
             request({
                 method: method,
