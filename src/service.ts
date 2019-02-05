@@ -1,8 +1,11 @@
 import request from 'request';
 import { Observable } from 'rxjs';
 import { Method, Model } from './model';
+import { FilterChain } from './filter';
 
 interface IRequestService {
+
+    filterChain: FilterChain;
 
      /**
      * 发送http请求
@@ -13,9 +16,13 @@ interface IRequestService {
      * @param header 请求体
      */
     http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T>;
+
+    // http<T>(request: RxRequest): Observable<T>;
 }
 
 export class RequestService implements IRequestService {
+
+    filterChain: FilterChain;
 
     http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T> {
         return Observable.create( (observer: { next: (value: T) => void; error: (value: any) => void; }) => {
@@ -40,6 +47,7 @@ export class RequestService implements IRequestService {
         if(!request) {
             throw Error('fail to find request');
         }
+        this.filterChain = new FilterChain();
     }
 
 }
