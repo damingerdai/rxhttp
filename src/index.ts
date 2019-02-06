@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Model } from "./model";
+import { Model, RxRequest, Method } from "./model";
 import { RequestService } from './service';
 
 interface IRxHttpService {
@@ -29,17 +29,34 @@ export class RxHttpService implements IRxHttpService {
 
     private requestService: RequestService
 
-    get<T>(url: string, params: Model<string>, headers: Model<string>): Observable<T> {
-        return this.requestService.http('get', url, {}, params, headers);
+    get<T>(url: string, params: Model<string>, headers?: Model<string>): Observable<T> {
+        const reqest = this.toReuqest('get', url, {}, params, headers || {});
+        return this.requestService.http(reqest);
     }
+
     post<T>(url: string, data: Model<string>, headers: Model<string>): Observable<T> {
-        return this.requestService.http('post', url, data, {}, headers);
+        const reqest = this.toReuqest('post', url, data, {}, headers || {});
+        return this.requestService.http(reqest);
     }
+
     put<T>(url: string, data: Model<string>, headers: Model<string>): Observable<T> {
-        return this.requestService.http('put', url, data, {}, headers);
+        const reqest = this.toReuqest('put', url, data, {}, headers || {});
+        return this.requestService.http(reqest);
     }
+
     delete<T>(url: string, headers: Model<string>): Observable<T> {
-        return this.requestService.http('delete', url, {}, {}, headers);
+        const reqest = this.toReuqest('delete', url, {}, {}, headers || {});
+        return this.requestService.http(reqest);
+    }
+
+    private toReuqest(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): RxRequest {
+        return {
+            method: method,
+            url:url,
+            data:data || {},
+            params:params || {},
+            headers: headers || {},
+        }
     }
 
     constructor() {
