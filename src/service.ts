@@ -3,45 +3,32 @@ import { Observable } from 'rxjs';
 import { RxRequest } from './model';
 import { FilterChain } from './filter';
 
+/**
+ * 使用操作http请求的服务接口
+ * @author arthur ming
+ */
 interface IRequestService {
 
+    /**
+     * 过滤链
+     */
     filterChain: FilterChain;
 
     /**
-    * 发送http请求
-    * @param method 请求方法
-    * @param url 请求的连接
-    * @param data 请求体数据
-    * @param params 请求数据
-    * @param header 请求体
-    */
-    // http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T>;
-
+     * 操作http请求
+     * @param request 请求对象
+     */
     http<T>(request: RxRequest): Observable<T>;
 }
 
+/**
+ * IRequestService默认实现
+ * @author arthur ming
+ */
 export class RequestService implements IRequestService {
 
     filterChain: FilterChain;
 
-    // http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T> {
-    //     return Observable.create( (observer: { next: (value: T) => void; error: (value: any) => void; }) => {
-    //         request({
-    //             method: method,
-    //             url: url,
-    //             headers: headers || {},
-    //             qs: params || {},
-    //             body: data || {},
-    //             json: true
-    //         }, (error, response, body) => {
-    //             if (!error && response.statusCode == 200) {
-    //                 observer.next(body as T);
-    //             } else {
-    //                 observer.error(error || 'http error');
-    //             }
-    //         });
-    //     });
-    // }
     http<T>(r: RxRequest): Observable<T> {
         this.filterChain.doFilter(r);
         const o = (observer: { next: (value: T) => void; error: (value: any) => void; }) => {
@@ -63,6 +50,11 @@ export class RequestService implements IRequestService {
         return Observable.create(o);
     }
 
+    /**
+     * 默认构造函数
+     * 该构造函数会判断当前nodejs环境下时候存在request对象
+     * 同时也会初始化过滤链
+     */
     constructor() {
         if (!request) {
             throw Error('fail to find request');
