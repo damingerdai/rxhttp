@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Model, RxRequest, Method } from "./model";
 import { RequestService } from './service';
+import { Filter } from './filter';
 
 interface IRxHttpService {
 
@@ -21,6 +22,10 @@ interface IRxHttpService {
     put<T>(url: string, data: Model<string>, headers?: Model<string>): Observable<T>;
 
     delete<T>(url: string, headers?: Model<string>): Observable<T>;
+
+    addFilter(filter: Filter): IRxHttpService;
+
+    addFilters(...filters: Filter[]): IRxHttpService;
 
 }
 
@@ -49,6 +54,20 @@ export class RxHttpService implements IRxHttpService {
         return this.requestService.http(reqest);
     }
 
+    addFilter(filter: Filter): RxHttpService {
+        if (filter) {
+            this.requestService.filterChain.addFilter(filter);
+        }   
+        return this;
+    }
+
+    addFilters(...filters: Filter[]): RxHttpService {
+        if (filters && filters.length > 0) {
+            filters.forEach(fitler => this.requestService.filterChain.addFilter(fitler));
+        }
+        return this;
+    }
+
     private toReuqest(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): RxRequest {
         return {
             method: method,
@@ -59,8 +78,9 @@ export class RxHttpService implements IRxHttpService {
         }
     }
 
+
+
     constructor() {
         this.requestService = new RequestService();
     }
-
 }
