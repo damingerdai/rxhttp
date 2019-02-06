@@ -41,5 +41,6 @@ module.exports = {
     ],
     externals: [
         'rxjs',
+        'request',
     ],
 }
