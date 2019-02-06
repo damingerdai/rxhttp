@@ -4,4 +4,16 @@ export interface Model<T> {
 
 export type Method = 'get' | 'post' | 'put' | 'delete';
 
-//export type Observer<T> = { next: (value: T) => void; error: (value: any) => void; }
+export interface RxRequest {
+
+    url: string;
+
+    method: Method;
+
+    data?:  Model<string>;
+
+    params?: Model<string>;
+
+    headers?: Model<string>;
+
+}
