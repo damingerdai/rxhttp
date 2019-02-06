@@ -1,6 +1,21 @@
-const http = require('./rxhttp').RxHttpService;
+// 接口提供商： https://www.tianqiapi.com/
 
-const observable = new http().get('https://www.tianqiapi.com/api', {
+const httpService = require('./rxhttp').RxHttpService;
+const perfixUrl = 'https://www.tianqiapi.com'
+const http = new httpService();
+
+const doFilter = (request) => {
+    request.url = perfixUrl +  request.url
+}
+
+const filter = {
+    doFilter:doFilter,
+}
+
+http.addFilter(filter);
+
+
+const observable = http.get('/api', {
     version: 'v1',
     city: '上海',
 });
