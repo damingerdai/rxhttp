@@ -14,13 +14,13 @@ interface IRxHttpService {
      */
    // http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T>;
 
-    get<T>(url: string, params: Model<string>, headers: Model<string>): Observable<T>;
+    get<T>(url: string, params: Model<string>, headers?: Model<string>): Observable<T>;
 
-    post<T>(url: string, data: Model<string>, headers: Model<string>): Observable<T>;
+    post<T>(url: string, data: Model<string>, headers?: Model<string>): Observable<T>;
 
-    put<T>(url: string, data: Model<string>, headers: Model<string>): Observable<T>;
+    put<T>(url: string, data: Model<string>, headers?: Model<string>): Observable<T>;
 
-    delete<T>(url: string, headers: Model<string>): Observable<T>;
+    delete<T>(url: string, headers?: Model<string>): Observable<T>;
 
 }
 
