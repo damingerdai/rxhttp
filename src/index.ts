@@ -78,8 +78,6 @@ export class RxHttpService implements IRxHttpService {
         }
     }
 
-
-
     constructor() {
         this.requestService = new RequestService();
     }
