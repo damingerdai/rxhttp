@@ -3,35 +3,67 @@ import { Model, RxRequest, Method } from "./model";
 import { RequestService } from './service';
 import { Filter } from './filter';
 
+/**
+ * 基于rxjs的http请求接口
+ * @author arthur ming
+ */
 interface IRxHttpService {
 
-     /**
-     * 发送http请求
-     * @param method 请求方法
-     * @param url 请求的连接
-     * @param data 请求体数据
-     * @param params 请求数据
-     * @param header 请求体
+    /**
+     * 发送get请求
+     * @param url 请求网址
+     * @param params 请求url的参数
+     * @param headers 请求头
      */
-   // http<T>(method: Method, url: string, data: Model<string>, params: Model<string>, headers: Model<string>): Observable<T>;
-
     get<T>(url: string, params: Model<string>, headers?: Model<string>): Observable<T>;
 
+    /**
+     * 发送post请求
+     * @param url 请求网址
+     * @param data 请求体
+     * @param headers 请求头
+     */
     post<T>(url: string, data: Model<string>, headers?: Model<string>): Observable<T>;
 
+    /**
+     * 发送put请求
+     * @param url 请求网址
+     * @param data 请求体
+     * @param headers 请求头
+     */
     put<T>(url: string, data: Model<string>, headers?: Model<string>): Observable<T>;
 
+    /**
+     * 发送delete请求
+     * @param url 请求网址
+     * @param headers 请求体
+     */
     delete<T>(url: string, headers?: Model<string>): Observable<T>;
 
+    /**
+     * 添加过滤器
+     * @param filter 过滤器
+     */
     addFilter(filter: Filter): IRxHttpService;
 
+    /**
+     * 批量添加过滤器
+     * @param filters 过滤器数组
+     */
     addFilters(...filters: Filter[]): IRxHttpService;
 
 }
 
-
+/**
+ * IRxHttpService的默认实现
+ * 基于rxjs和request框架
+ * @author arthur ming
+ */
 export class RxHttpService implements IRxHttpService {
 
+    /**
+     * 实际操作http请求的服务对象
+     */
     private requestService: RequestService
 
     get<T>(url: string, params: Model<string>, headers?: Model<string>): Observable<T> {
