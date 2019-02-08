@@ -1,8 +1,8 @@
 {
   "name": "damingerdai-rxhttp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于rxjs和request的http请求工具类",
-  "main": "src/index.ts",
+  "main": "dist/rxhttp.js",
   "sideEffects": false,
   "scripts": {
     "test": "node test/index.js",
@@ -33,6 +33,7 @@
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^1.0.0",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
     "ts-loader": "^5.3.2",
     "tslint": "^5.12.1",
     "typescript": "^3.3.1",
