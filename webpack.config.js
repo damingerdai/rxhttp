@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const DeclarationBundlerPlugin = require('./tools/plugin/declaration-bundler-webpack-plugin.fix');
 
 module.exports = {
     entry: {
@@ -18,9 +19,9 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: [
-                    {
-                        loader: 'babel-loader'
-                    },
+                    // {
+                    //     loader: 'babel-loader'
+                    // },
                     {
                         loader: 'ts-loader'
                     }
@@ -38,6 +39,10 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
+        new DeclarationBundlerPlugin({
+            moduleName:'rxhttp',
+            out:'./rxhttp.d.ts',
+        })
     ],
     externals: [
         'rxjs',
