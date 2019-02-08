@@ -1,8 +1,8 @@
 {
   "name": "damingerdai-rxhttp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于rxjs和request的http请求工具类",
-  "main": "src/index.ts",
+  "main": "dist/rxhttp.js",
   "sideEffects": false,
   "scripts": {
     "test": "node test/index.js",
