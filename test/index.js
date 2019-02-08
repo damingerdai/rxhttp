@@ -1,5 +1,4 @@
 // 接口提供商： https://www.tianqiapi.com/
-require('rxjs');
 const httpService = require('damingerdai-rxhttp').RxHttpService;
 const perfixUrl = 'https://www.tianqiapi.com'
 const http = new httpService();
