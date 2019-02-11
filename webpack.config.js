@@ -42,7 +42,7 @@ module.exports = {
         new DeclarationBundlerPlugin({
             moduleName:'rxhttp',
             out:'./rxhttp.d.ts',
-            excludedReferences: 'rxjs'
+            excludedReferences: ['rxjs']
         })
     ],
     externals: [

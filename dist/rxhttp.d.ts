@@ -33,6 +33,7 @@
 	    constructor();
 	}
 
+	import { Observable } from 'rxjs';
 	/**
 	 * 基于rxjs的http请求接口
 	 * @author arthur ming
@@ -134,6 +135,7 @@
 	    headers?: Model<string>;
 	}
 
+	import { Observable } from 'rxjs';
 	/**
 	 * 使用操作http请求的服务接口
 	 * @author arthur ming

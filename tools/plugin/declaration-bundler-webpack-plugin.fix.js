@@ -41,7 +41,6 @@ var DeclarationBundlerPlugin = (function () {
         var declarations = '';
         for (var fileName in declarationFiles) {
             var declarationFile = declarationFiles[fileName];
-            console.info(declarationFile.source())
             var data = declarationFile.source();
             var lines = data.split("\n");
             var i = lines.length;
@@ -52,15 +51,27 @@ var DeclarationBundlerPlugin = (function () {
                 //exclude export statements
                 excludeLine = excludeLine || line.indexOf("export =") !== -1;
                 //exclude import statements
-                excludeLine = excludeLine || (/import ([a-z0-9A-Z_-]+) = require\(/).test(line);
+                excludeLine = excludeLine || ((/import ([a-z0-9A-Z_-]+) = require\(/).test(line));
                 excludeLine = excludeLine || (/import ([\{A-Za-z0-9 ,\}]+)/).test(line);
                 
                 //if defined, check for excluded references
                 if (!excludeLine && this.excludedReferences && line.indexOf("<reference") !== -1) {
                     excludeLine = this.excludedReferences.some(function (reference) { return line.indexOf(reference) !== -1; });
                 }
-                if (excludeLine) {
-                    lines.splice(i, 1);
+
+              
+               
+                if (excludeLine  ) {
+                    if (line.indexOf('rxjs') > -1) {
+                      
+                        lines[i] = "\t" + lines[i];
+                    }
+                    else {
+                        console.log(line);
+                        lines.splice(i, 1);
+                    }
+                   
+                    
                 }
                 else {
                     if (line.indexOf("declare ") !== -1) {
