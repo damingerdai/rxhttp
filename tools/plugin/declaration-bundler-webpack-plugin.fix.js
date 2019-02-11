@@ -12,7 +12,7 @@ var DeclarationBundlerPlugin = (function () {
     DeclarationBundlerPlugin.prototype.apply = function (compiler) {
         var _this = this;
         //when the compiler is ready to emit files
-        compiler.plugin('emit', function (compilation, callback) {
+        compiler.hooks.emit.tapAsync('DeclarationBundlerWebpack4Plugin', function (compilation, callback) {
             //collect all generated declaration files
             //and remove them from the assets that will be emited
             var declarationFiles = {};
