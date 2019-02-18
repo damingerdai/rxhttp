@@ -1,13 +1,9 @@
-// https://github.com/smol/declaration-bundler-webpack-plugin/blob/master/plugin.js
-var DeclarationBundlerPlugin = (function () {
+"use strict";
+var DeclarationBundlerPlugin = /** @class */ (function () {
     function DeclarationBundlerPlugin(options) {
-        if (options === void 0) { options = {}; }
-        this.out = options.out ? options.out : './build/';
-        this.excludedReferences = options.excludedReferences ? options.excludedReferences : undefined;
-        if (!options.moduleName) {
-            throw new Error('please set a moduleName if you use mode:internal. new DacoreWebpackPlugin({mode:\'internal\',moduleName:...})');
-        }
-        this.moduleName = options.moduleName;
+        this.out = options.out || './dist/',
+            this.excludedReferences = options.excludedReferences || [];
+        this.importModels = options.importModels || [];
     }
     DeclarationBundlerPlugin.prototype.apply = function (compiler) {
         var _this = this;
@@ -38,54 +34,53 @@ var DeclarationBundlerPlugin = (function () {
         });
     };
     DeclarationBundlerPlugin.prototype.generateCombinedDeclaration = function (declarationFiles) {
+        var regExp = /import ([\{A-Za-z0-9 ,\}]+)/;
+        if (this.importModels && this.importModels.length > 0) {
+            console.log("import ([\{A-Za-z0-9 ,\}]+) '(" + this.importModels.join('|') + ")'")
+            regExp = new RegExp("import ([\{A-Za-z0-9 ,\}]+) '(" + this.importModels.join('|') + ")'");
+        }
+        var importLines = [];
         var declarations = '';
         for (var fileName in declarationFiles) {
             var declarationFile = declarationFiles[fileName];
             var data = declarationFile.source();
-            var lines = data.split("\n");
+            var lines = data.split('\n');
             var i = lines.length;
-            while (i--) {
+            var _loop_1 = function () {
                 var line = lines[i];
                 //exclude empty lines
-                var excludeLine = line == "";
+                var excludeLine = line === '';
                 //exclude export statements
-                excludeLine = excludeLine || line.indexOf("export =") !== -1;
-                //exclude import statements
-                excludeLine = excludeLine || ((/import ([a-z0-9A-Z_-]+) = require\(/).test(line));
+                excludeLine = excludeLine || line.indexOf('export =') !== -1;
+                //exclude import statements;
+                excludeLine = excludeLine || (/import ([a-z0-9A-Z_-]+) = require\(/).test(line);
                 excludeLine = excludeLine || (/import ([\{A-Za-z0-9 ,\}]+)/).test(line);
-                
-                //if defined, check for excluded references
-                if (!excludeLine && this.excludedReferences && line.indexOf("<reference") !== -1) {
-                    excludeLine = this.excludedReferences.some(function (reference) { return line.indexOf(reference) !== -1; });
+                if (regExp.test(line) && (importLines.findIndex(l => l === line) === -1)) { 
+                    importLines.push(line);
                 }
-
-              
-               
-                if (excludeLine  ) {
-                    if (line.indexOf('rxjs') > -1) {
-                      
-                        lines[i] = "\t" + lines[i];
-                    }
-                    else {
-                        console.log(line);
-                        lines.splice(i, 1);
-                    }
-                   
-                    
+                //if defined, check for excluded references
+                if (!excludeLine && this_1.excludedReferences && line.indexOf('<reference') !== -1) {
+                    excludeLine = this_1.excludedReferences.some(function (reference) { return line.indexOf(reference) !== -1; });
+                }
+                if (excludeLine) {
+                    lines.splice(i, 1);
                 }
                 else {
-                    if (line.indexOf("declare ") !== -1) {
-                        lines[i] = line.replace("declare ", "");
+                    if (line.indexOf('declare ') !== -1) {
+                        lines[i] = line.replace('declare ', '');
                     }
                     //add tab
-                    lines[i] = "\t" + lines[i];
+                    lines[i] = '\t' + lines[i];
                 }
+            };
+            var this_1 = this;
+            while (i--) {
+                _loop_1();
             }
-            declarations += lines.join("\n") + "\n\n";
+            declarations += lines.join('\n') + '\n\n';
         }
-        // var output = "export declare module " + this.moduleName + "\n{\n" + declarations + "}";
-        return declarations;
+        return importLines.join('\n') + '\n\n' + declarations;
     };
     return DeclarationBundlerPlugin;
-})();
+}());
 module.exports = DeclarationBundlerPlugin;

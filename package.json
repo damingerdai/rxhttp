@@ -1,6 +1,6 @@
 {
   "name": "damingerdai-rxhttp",
-  "version": "1.0.3",
+  "version": "1.0.3-beta1",
   "description": "基于rxjs和request的http请求工具类",
   "main": "dist/rxhttp.js",
   "types": "dist/rxhttp.d.ts",

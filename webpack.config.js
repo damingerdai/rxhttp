@@ -1,12 +1,12 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const DeclarationBundlerPlugin = require('declaration-bundler-webpack4-plugin');
+const DeclarationBundlerPlugin = require('./tools/plugin/declaration-bundler-webpack-plugin.fix');
 
 module.exports = {
     entry: {
         rxhttp: './src/index.ts'
     }, 
-    // mode: 'production',
+    mode: 'production',
     target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -40,9 +40,9 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new DeclarationBundlerPlugin({
-            moduleName:'rxhttp',
             out:'./rxhttp.d.ts',
-            excludedReferences: ['rxjs']
+            excludedReferences: [],
+            importModels: ['rxjs']
         })
     ],
     externals: [
